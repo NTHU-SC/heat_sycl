@@ -27,25 +27,28 @@
 **
 ** HISTORY: Written by Tom Deakin, Oct 2018
 **          Ported to SYCL by Tom Deakin, Nov 2019
+**          Ported to OpenCL by Tom Deakin, Jan 2020
 **
 */
 
 #include <iostream>
 #include <chrono>
 #include <cmath>
+#include <fstream>
 
-#include <CL/sycl.hpp>
+#define CL_HPP_ENABLE_EXCEPTIONS
+#define CL_HPP_TARGET_OPENCL_VERSION 120
+#define CL_HPP_MINIMUM_OPENCL_VERSION 120
+#include <CL/cl2.hpp>
 
 // Key constants used in this program
-#define PI cl::sycl::acos(-1.0) // Pi
+#define PI std::acos(-1.0) // Pi
 #define LINE "--------------------" // A line for fancy output
 
 // Function definitions
-void initial_value(cl::sycl::queue &queue, const unsigned int n, const double dx, const double length, cl::sycl::buffer<double,2>& u);
-void zero(cl::sycl::queue &queue, const unsigned int n, cl::sycl::buffer<double,2>& u);
-void solve(cl::sycl::queue &queue, const unsigned int n, const double alpha, const double dx, const double dt, cl::sycl::buffer<double,2>& u, cl::sycl::buffer<double,2>& u_tmp);
 double solution(const double t, const double x, const double y, const double alpha, const double length);
 double l2norm(const unsigned int n, const double * u, const int nsteps, const double dt, const double alpha, const double dx, const double length);
+
 
 // Main function
 int main(int argc, char *argv[]) {
@@ -92,9 +95,42 @@ int main(int argc, char *argv[]) {
   // Stability requires that dt/(dx^2) <= 0.5,
   double r = alpha * dt / (dx * dx);
 
-  // Initalise SYCL queue on a GPU device
-  //cl::sycl::queue queue {cl::sycl::gpu_selector{}};
-  cl::sycl::queue queue {cl::sycl::cpu_selector{}};
+  // Initalise an OpenCL queue on a GPU device
+  // Get list of platforms
+  std::vector<cl::Platform> platforms;
+  cl::Platform::get(&platforms);
+  if (platforms.size() < 1) {
+    std::cerr << "Error: no OpenCL platforms" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  std::vector<cl::Device> device_list;
+  platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &device_list);
+  if (device_list.size() < 1) {
+    std::cerr << "Error: no OpenCL devices" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  cl::Device device = device_list[0];
+  std::string device_name;
+  device.getInfo(CL_DEVICE_NAME, &device_name);
+
+  cl::Context context(device);
+  cl::CommandQueue queue(context);
+
+  // Create kernels
+  std::ifstream stream("kernels.cl");
+  if (!stream.is_open()) {
+    std::cerr << "Error: Cannot open kernels.cl file" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  std::string kernel_source(
+    std::istreambuf_iterator<char>(stream),
+    (std::istreambuf_iterator<char>()));
+
+  cl::Program program(context, kernel_source, true);
+  cl::KernelFunctor<cl_uint, cl_double, cl_double, cl::Buffer> initial_value(program, "initial_value");
+  cl::KernelFunctor<cl_uint, cl::Buffer> zero(program, "zero");
+  cl::KernelFunctor<cl_uint, cl_double, cl_double, cl_double, cl::Buffer, cl::Buffer> solve(program, "solve");
 
   // Print message detailing runtime configuration
   std::cout
@@ -111,8 +147,11 @@ int main(int argc, char *argv[]) {
     << " Steps: " <<  nsteps << std::endl
     << " Total time: " << dt*(double)nsteps << std::endl
     << " Time step: " << dt << std::endl
-    << " SYCL device: " << queue.get_device().get_info<cl::sycl::info::device::name>() << std::endl
+    << " SYCL device: " << device_name << std::endl
     << LINE << std::endl;
+
+
+
 
   // Stability check
   std::cout << "Stability" << std::endl << std::endl;
@@ -123,15 +162,15 @@ int main(int argc, char *argv[]) {
 
 
   // Allocate two nxn grids
-  cl::sycl::buffer<double, 2> u{cl::sycl::range<2>{n,n}};
-  cl::sycl::buffer<double, 2> u_tmp{cl::sycl::range<2>{n,n}};
+  cl::Buffer u{context, CL_MEM_READ_WRITE, sizeof(double)*n*n};
+  cl::Buffer u_tmp{context, CL_MEM_READ_WRITE, sizeof(double)*n*n};
 
   // Set the initial value of the grid under the MMS scheme
-  initial_value(queue, n, dx, length, u);
-  zero(queue, n, u_tmp);
+  initial_value(cl::EnqueueArgs(queue, cl::NDRange(n,n)), n, dx, length, u);
+  zero(cl::EnqueueArgs(queue, cl::NDRange(n*n)), n, u_tmp);
 
   // Ensure everything is initalised on the device
-  queue.wait();
+  queue.finish();
 
   //
   // Run through timesteps under the explicit scheme
@@ -144,19 +183,19 @@ int main(int argc, char *argv[]) {
     // Call the solve kernel
     // Computes u_tmp at the next timestep
     // given the value of u at the current timestep
-    solve(queue, n, alpha, dx, dt, u, u_tmp);
+    if (t % 2 == 0)
+      solve(cl::EnqueueArgs(queue, cl::NDRange(n,n)), n, alpha, dx, dt, u, u_tmp);
+    else
+      solve(cl::EnqueueArgs(queue, cl::NDRange(n,n)), n, alpha, dx, dt, u_tmp, u);
 
-    // Pointer swap
-    auto tmp = std::move(u);
-    u = std::move(u_tmp);
-    u_tmp = std::move(tmp);
   }
   // Stop solve timer
-  queue.wait();
+  queue.finish();
   auto toc = std::chrono::high_resolution_clock::now();
 
   // Get access to u on the host
-  double *u_host = u.get_access<cl::sycl::access::mode::read>().get_pointer();
+  double *u_host = new double[n*n];
+  queue.enqueueReadBuffer(u, CL_TRUE, 0, sizeof(double)*n*n, u_host);
 
   //
   // Check the L2-norm of the computed solution
@@ -176,67 +215,9 @@ int main(int argc, char *argv[]) {
     << "Bandwidth (GB/s): " << 1.0E-9*2.0*n*n*nsteps*sizeof(double)/std::chrono::duration_cast<std::chrono::duration<double>>(toc-tic).count() << std::endl
     << LINE << std::endl;
 
-}
-
-
-// Sets the mesh to an initial value, determined by the MMS scheme
-void initial_value(cl::sycl::queue& queue, const unsigned int n, const double dx, const double length, cl::sycl::buffer<double,2>& u) {
-
-  queue.submit([&](cl::sycl::handler& cgh) {
-    auto ua = u.get_access<cl::sycl::access::mode::discard_write>(cgh);
-
-    cgh.parallel_for<class initial_value_kernel>(cl::sycl::range<2>{n, n}, [=](cl::sycl::id<2> idx) {
-      int i = idx[1];
-      int j = idx[0];
-      double y = dx * (j+1); // Physical y position
-      double x = dx * (i+1); // Physical x position
-      ua[idx] = cl::sycl::sin(PI * x / length) * cl::sycl::sin(PI * y / length);
-    });
-  });
-}
-
-
-// Zero the array u
-void zero(cl::sycl::queue& queue, const unsigned int n, cl::sycl::buffer<double,2>& u) {
-
-  queue.submit([&](cl::sycl::handler& cgh) {
-    auto ua = u.get_access<cl::sycl::access::mode::discard_write>(cgh);
-
-    cgh.parallel_for<class zero_kernel>(cl::sycl::range<2>{n,n}, [=](cl::sycl::id<2> idx) {
-      ua[idx] = 0.0;
-    });
-  });
+  delete[] u_host;
 
 }
-
-
-// Compute the next timestep, given the current timestep
-void solve(cl::sycl::queue& queue, const unsigned int n, const double alpha, const double dx, const double dt, cl::sycl::buffer<double,2>& u_b, cl::sycl::buffer<double,2>& u_tmp_b) {
-
-  // Finite difference constant multiplier
-  const double r = alpha * dt / (dx * dx);
-  const double r2 = 1.0 - 4.0*r;
-
-  queue.submit([&](cl::sycl::handler& cgh) {
-    auto u_tmp = u_tmp_b.get_access<cl::sycl::access::mode::discard_write>(cgh);
-    auto u = u_b.get_access<cl::sycl::access::mode::read>(cgh);
-
-    // Loop over the nxn grid
-    cgh.parallel_for<class solve_kernel>(cl::sycl::range<2>{n, n}, [=](cl::sycl::id<2> idx) {
-      size_t j = idx[0];
-      size_t i = idx[1];
-
-      // Update the 5-point stencil, using boundary conditions on the edges of the domain.
-      // Boundaries are zero because the MMS solution is zero there.
-      u_tmp[j][i] =  r2 * u[j][i] +
-      r * ((i < n-1) ? u[j][i+1] : 0.0) +
-      r * ((i > 0)   ? u[j][i-1] : 0.0) +
-      r * ((j < n-1) ? u[j+1][i] : 0.0) +
-      r * ((j > 0)   ? u[j-1][i] : 0.0);
-    });
-  });
-}
-
 
 // True answer given by the manufactured solution
 double solution(const double t, const double x, const double y, const double alpha, const double length) {

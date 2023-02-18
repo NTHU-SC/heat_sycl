@@ -39,7 +39,7 @@
 #define CL_HPP_ENABLE_EXCEPTIONS
 #define CL_HPP_TARGET_OPENCL_VERSION 120
 #define CL_HPP_MINIMUM_OPENCL_VERSION 120
-#include <CL/cl2.hpp>
+#include <CL/opencl.hpp>
 
 // Key constants used in this program
 #define PI std::acos(-1.0) // Pi
@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
   }
 
   std::vector<cl::Device> device_list;
-  platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &device_list);
+  platforms[0].getDevices(CL_DEVICE_TYPE_CPU, &device_list);
   if (device_list.size() < 1) {
     std::cerr << "Error: no OpenCL devices" << std::endl;
     exit(EXIT_FAILURE);

@@ -93,8 +93,7 @@ int main(int argc, char *argv[]) {
   double r = alpha * dt / (dx * dx);
 
   // Initalise SYCL queue on a GPU device
-  //cl::sycl::queue queue {cl::sycl::gpu_selector{}};
-  cl::sycl::queue queue {cl::sycl::cpu_selector{}};
+  cl::sycl::queue queue {cl::sycl::gpu_selector{}};
 
   // Print message detailing runtime configuration
   std::cout
@@ -156,7 +155,7 @@ int main(int argc, char *argv[]) {
   auto toc = std::chrono::high_resolution_clock::now();
 
   // Get access to u on the host
-  double *u_host = u.get_access<cl::sycl::access::mode::read>().get_pointer();
+  double *u_host = (double *) u.get_access<cl::sycl::access::mode::read>().get_pointer();
 
   //
   // Check the L2-norm of the computed solution
