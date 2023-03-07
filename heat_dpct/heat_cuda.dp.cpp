@@ -31,27 +31,31 @@
 **
 */
 
+#include <sycl/sycl.hpp>
+#include <dpct/dpct.hpp>
 #include <iostream>
 #include <chrono>
 #include <cmath>
 #include <fstream>
 
-#define CL_HPP_ENABLE_EXCEPTIONS
-#define CL_HPP_TARGET_OPENCL_VERSION 120
-#define CL_HPP_MINIMUM_OPENCL_VERSION 120
-#include <CL/opencl.hpp>
-
 // Key constants used in this program
-#define PI std::acos(-1.0) // Pi
+#define PI sycl::acos(-1.0)         // Pi
 #define LINE "--------------------" // A line for fancy output
 
 // Function definitions
+void initial_value(const unsigned int n, const double dx, const double length, double * u,
+                   sycl::nd_item<3> item_ct1);
+void zero(const unsigned int n, double * u, sycl::nd_item<3> item_ct1);
+void solve(const unsigned int n, const double alpha, const double dx, const double dt, double * __restrict__ u, double * __restrict__ u_tmp,
+           sycl::nd_item<3> item_ct1);
 double solution(const double t, const double x, const double y, const double alpha, const double length);
 double l2norm(const unsigned int n, const double * u, const int nsteps, const double dt, const double alpha, const double dx, const double length);
 
 
 // Main function
 int main(int argc, char *argv[]) {
+  dpct::device_ext &dev_ct1 = dpct::get_current_device();
+  sycl::queue &q_ct1 = dev_ct1.default_queue();
 
   // Start the total program runtime timer
   auto start = std::chrono::high_resolution_clock::now();
@@ -95,42 +99,9 @@ int main(int argc, char *argv[]) {
   // Stability requires that dt/(dx^2) <= 0.5,
   double r = alpha * dt / (dx * dx);
 
-  // Initalise an OpenCL queue on a GPU device
-  // Get list of platforms
-  std::vector<cl::Platform> platforms;
-  cl::Platform::get(&platforms);
-  if (platforms.size() < 1) {
-    std::cerr << "Error: no OpenCL platforms" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
-  std::vector<cl::Device> device_list;
-  platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &device_list);
-  if (device_list.size() < 1) {
-    std::cerr << "Error: no OpenCL devices" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-  cl::Device device = device_list[0];
-  std::string device_name;
-  device.getInfo(CL_DEVICE_NAME, &device_name);
-
-  cl::Context context(device);
-  cl::CommandQueue queue(context);
-
-  // Create kernels
-  std::ifstream stream("kernels.cl");
-  if (!stream.is_open()) {
-    std::cerr << "Error: Cannot open kernels.cl file" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-  std::string kernel_source(
-    std::istreambuf_iterator<char>(stream),
-    (std::istreambuf_iterator<char>()));
-
-  cl::Program program(context, kernel_source, true);
-  cl::KernelFunctor<cl_uint, cl_double, cl_double, cl::Buffer> initial_value(program, "initial_value");
-  cl::KernelFunctor<cl_uint, cl::Buffer> zero(program, "zero");
-  cl::KernelFunctor<cl_uint, cl_double, cl_double, cl_double, cl::Buffer, cl::Buffer> solve(program, "solve");
+  dpct::device_info prop;
+  dpct::dev_mgr::instance().get_device(0).get_device_info(prop);
+  char *device_name = prop.get_name();
 
   // Print message detailing runtime configuration
   std::cout
@@ -147,7 +118,7 @@ int main(int argc, char *argv[]) {
     << " Steps: " <<  nsteps << std::endl
     << " Total time: " << dt*(double)nsteps << std::endl
     << " Time step: " << dt << std::endl
-    << " SYCL device: " << device_name << std::endl
+    << " CUDA device: " << device_name << std::endl
     << LINE << std::endl;
 
 
@@ -162,15 +133,51 @@ int main(int argc, char *argv[]) {
 
 
   // Allocate two nxn grids
-  cl::Buffer u{context, CL_MEM_READ_WRITE, sizeof(double)*n*n};
-  cl::Buffer u_tmp{context, CL_MEM_READ_WRITE, sizeof(double)*n*n};
+  double *u;
+  double *u_tmp;
+  u = (double *)sycl::malloc_device(sizeof(double) * n * n, q_ct1);
+  u_tmp = (double *)sycl::malloc_device(sizeof(double) * n * n, q_ct1);
 
   // Set the initial value of the grid under the MMS scheme
-  initial_value(cl::EnqueueArgs(queue, cl::NDRange(n,n)), n, dx, length, u);
-  zero(cl::EnqueueArgs(queue, cl::NDRange(n*n)), n, u_tmp);
+  const int block_size = 16;
+  int n_ceil = (n % block_size == 0) ? n/block_size : (n/block_size) + 1;
+  sycl::range<3> grid(1, n_ceil, n_ceil);
+  sycl::range<3> block(1, block_size, block_size);
+  /*
+  DPCT1049:0: The work-group size passed to the SYCL kernel may exceed the
+  limit. To get the device limit, query info::device::max_work_group_size.
+  Adjust the work-group size if needed.
+  */
+  q_ct1.parallel_for(sycl::nd_range<3>(grid * block, block),
+                     [=](sycl::nd_item<3> item_ct1) {
+                       initial_value(n, dx, length, u, item_ct1);
+                     });
+  /*
+  DPCT1049:1: The work-group size passed to the SYCL kernel may exceed the
+  limit. To get the device limit, query info::device::max_work_group_size.
+  Adjust the work-group size if needed.
+  */
+  q_ct1.parallel_for(sycl::nd_range<3>(grid * block, block),
+                     [=](sycl::nd_item<3> item_ct1) {
+                       zero(n, u_tmp, item_ct1);
+                     });
 
   // Ensure everything is initalised on the device
-  queue.finish();
+  /*
+  DPCT1003:8: Migrated API does not return error code. (*, 0) is inserted. You
+  may need to rewrite this code.
+  */
+  int err = (dev_ct1.queues_wait_and_throw(), 0);
+  /*
+  DPCT1000:5: Error handling if-stmt was detected but could not be rewritten.
+  */
+  if (err != 0) {
+    /*
+    DPCT1001:4: The statement could not be removed.
+    */
+    std::cerr << "CUDA error after initalisation" << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
   //
   // Run through timesteps under the explicit scheme
@@ -184,18 +191,48 @@ int main(int argc, char *argv[]) {
     // Computes u_tmp at the next timestep
     // given the value of u at the current timestep
     if (t % 2 == 0)
-      solve(cl::EnqueueArgs(queue, cl::NDRange(n,n)), n, alpha, dx, dt, u, u_tmp);
+      /*
+      DPCT1049:2: The work-group size passed to the SYCL kernel may exceed the
+      limit. To get the device limit, query info::device::max_work_group_size.
+      Adjust the work-group size if needed.
+      */
+      q_ct1.parallel_for(sycl::nd_range<3>(grid * block, block),
+                         [=](sycl::nd_item<3> item_ct1) {
+                           solve(n, alpha, dx, dt, u, u_tmp, item_ct1);
+                         });
     else
-      solve(cl::EnqueueArgs(queue, cl::NDRange(n,n)), n, alpha, dx, dt, u_tmp, u);
-
+      /*
+      DPCT1049:3: The work-group size passed to the SYCL kernel may exceed the
+      limit. To get the device limit, query info::device::max_work_group_size.
+      Adjust the work-group size if needed.
+      */
+      q_ct1.parallel_for(sycl::nd_range<3>(grid * block, block),
+                         [=](sycl::nd_item<3> item_ct1) {
+                           solve(n, alpha, dx, dt, u_tmp, u, item_ct1);
+                         });
   }
+
   // Stop solve timer
-  queue.finish();
+  dev_ct1.queues_wait_and_throw();
   auto toc = std::chrono::high_resolution_clock::now();
 
   // Get access to u on the host
   double *u_host = new double[n*n];
-  queue.enqueueReadBuffer(u, CL_TRUE, 0, sizeof(double)*n*n, u_host);
+  /*
+  DPCT1003:9: Migrated API does not return error code. (*, 0) is inserted. You
+  may need to rewrite this code.
+  */
+  err = (q_ct1.memcpy(u_host, u, sizeof(double) * n * n).wait(), 0);
+  /*
+  DPCT1000:7: Error handling if-stmt was detected but could not be rewritten.
+  */
+  if (err != 0) {
+    /*
+    DPCT1001:6: The statement could not be removed.
+    */
+    std::cerr << "CUDA error on copying back data" << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
   //
   // Check the L2-norm of the computed solution
@@ -216,8 +253,63 @@ int main(int argc, char *argv[]) {
     << LINE << std::endl;
 
   delete[] u_host;
+}
+
+// Sets the mesh to an initial value, determined by the MMS scheme
+void initial_value(const unsigned int n, const double dx, const double length, double * u,
+                   sycl::nd_item<3> item_ct1) {
+
+  int i = item_ct1.get_group(2) * item_ct1.get_local_range(2) +
+          item_ct1.get_local_id(2);
+  int j = item_ct1.get_group(1) * item_ct1.get_local_range(1) +
+          item_ct1.get_local_id(1);
+
+  if (i >= n || j >= n) return;
+
+  int idx = i+j*n;
+  double y = dx * (j+1); // Physical y position
+  double x = dx * (i+1); // Physical x position
+  u[idx] = sycl::sin(PI * x / length) * sycl::sin(PI * y / length);
+}
+
+
+// Zero the array u
+void zero(const unsigned int n, double * u, sycl::nd_item<3> item_ct1) {
+
+  int i = item_ct1.get_group(2) * item_ct1.get_local_range(2) +
+          item_ct1.get_local_id(2);
+  if (i >= n*n) return;
+
+  u[i] = 0.0;
 
 }
+
+
+// Compute the next timestep, given the current timestep
+// Loop over the nxn grid
+void solve(const unsigned int n, const double alpha, const double dx, const double dt, double * __restrict__ u, double * __restrict__ u_tmp,
+           sycl::nd_item<3> item_ct1) {
+
+  // Finite difference constant multiplier
+  const double r = alpha * dt / (dx * dx);
+  const double r2 = 1.0 - 4.0*r;
+
+  int j = item_ct1.get_group(1) * item_ct1.get_local_range(1) +
+          item_ct1.get_local_id(1);
+  int i = item_ct1.get_group(2) * item_ct1.get_local_range(2) +
+          item_ct1.get_local_id(2);
+
+  if (i >= n || j >= n) return;
+
+  // Update the 5-point stencil, using boundary conditions on the edges of the domain.
+  // Boundaries are zero because the MMS solution is zero there.
+  u_tmp[i+j*n] =  r2 * u[i+j*n] +
+  r * ((i < n-1) ? u[i+1+j*n] : 0.0) +
+  r * ((i > 0)   ? u[i-1+j*n] : 0.0) +
+  r * ((j < n-1) ? u[i+(j+1)*n] : 0.0) +
+  r * ((j > 0)   ? u[i+(j-1)*n] : 0.0);
+}
+
 
 // True answer given by the manufactured solution
 double solution(const double t, const double x, const double y, const double alpha, const double length) {

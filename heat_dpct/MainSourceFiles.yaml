@@ -1,0 +1,1102 @@
+---
+MainSourceFile:  MainSrcFiles_placehold
+Replacements:
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1037
+    Length:          0
+    ReplacementText: "#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1112
+    Length:          18
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1180
+    Length:          15
+    ReplacementText: 'sycl::acos(-1.0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1290
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1390
+    Length:          0
+    ReplacementText: ",\n                   sycl::nd_item<3> item_ct1"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1393
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1446
+    Length:          0
+    ReplacementText: ', sycl::nd_item<3> item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1449
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1599
+    Length:          0
+    ReplacementText: ",\n           sycl::nd_item<3> item_ct1"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1908
+    Length:          0
+    ReplacementText: ' try '
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          1909
+    Length:          0
+    ReplacementText: "\n  dpct::device_ext &dev_ct1 = dpct::get_current_device();\n  sycl::queue &q_ct1 = dev_ct1.default_queue();"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          3066
+    Length:          14
+    ReplacementText: 'dpct::device_info'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          3089
+    Length:          23
+    ReplacementText: 'dpct::dev_mgr::instance().get_device'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          3113
+    Length:          7
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          3122
+    Length:          0
+    ReplacementText: '.get_device_info(prop)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          3151
+    Length:          4
+    ReplacementText: 'get_name()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4107
+    Length:          38
+    ReplacementText: 'u = (double *)sycl::malloc_device(sizeof(double)*n*n, q_ct1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4149
+    Length:          38
+    ReplacementText: 'u_tmp = (double *)sycl::malloc_device(sizeof(double)*n*n, q_ct1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4355
+    Length:          4
+    ReplacementText: 'sycl::range<3>'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4365
+    Length:          14
+    ReplacementText: 1, n_ceil, n_ceil
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4384
+    Length:          4
+    ReplacementText: 'sycl::range<3>'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4395
+    Length:          22
+    ReplacementText: 1, block_size, block_size
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4420
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:0: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4422
+    Length:          48
+    ReplacementText: "q_ct1.parallel_for(\n    sycl::nd_range<3>(grid * block, block), \n    [=](sycl::nd_item<3> item_ct1) {\n      initial_value(n, dx, length, u, item_ct1);\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4470
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4472
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:1: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4474
+    Length:          31
+    ReplacementText: "q_ct1.parallel_for(\n    sycl::nd_range<3>(grid * block, block), \n    [=](sycl::nd_item<3> item_ct1) {\n      zero(n, u_tmp, item_ct1);\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4505
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4559
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1003:8: Migrated API does not return error code. (*, 0) is inserted. You may need to rewrite this code.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4561
+    Length:          11
+    ReplacementText: int
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4579
+    Length:          23
+    ReplacementText: '(dev_ct1.queues_wait_and_throw(), 0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4604
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1000:5: Error handling if-stmt was detected but could not be rewritten.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4617
+    Length:          11
+    ReplacementText: '0'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          4632
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1001:4: The statement could not be removed.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5054
+    Length:          0
+    ReplacementText: "      /*\n      DPCT1049:2: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n      */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5060
+    Length:          50
+    ReplacementText: "q_ct1.parallel_for(\n        sycl::nd_range<3>(grid * block, block), \n        [=](sycl::nd_item<3> item_ct1) {\n          solve(n, alpha, dx, dt, u, u_tmp, item_ct1);\n        });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5110
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5121
+    Length:          0
+    ReplacementText: "      /*\n      DPCT1049:3: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n      */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5127
+    Length:          50
+    ReplacementText: "q_ct1.parallel_for(\n        sycl::nd_range<3>(grid * block, block), \n        [=](sycl::nd_item<3> item_ct1) {\n          solve(n, alpha, dx, dt, u_tmp, u, item_ct1);\n        });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5177
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5209
+    Length:          23
+    ReplacementText: 'dev_ct1.queues_wait_and_throw()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5360
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1003:9: Migrated API does not return error code. (*, 0) is inserted. You may need to rewrite this code.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5368
+    Length:          10
+    ReplacementText: '(q_ct1.memcpy'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5408
+    Length:          24
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5433
+    Length:          0
+    ReplacementText: '.wait(), 0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5435
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1000:7: Error handling if-stmt was detected but could not be rewritten.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5448
+    Length:          11
+    ReplacementText: '0'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          5463
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1001:6: The statement could not be removed.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6378
+    Length:          0
+    ReplacementText: "\ncatch (sycl::exception const &exc) {\n  std::cerr << exc.what() << \"Exception caught at file:\" << __FILE__ << \", line:\" << __LINE__ << std::endl;\n  std::exit(1);\n}"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6447
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6547
+    Length:          0
+    ReplacementText: ",\n                   sycl::nd_item<3> item_ct1"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6562
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6575
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6588
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6611
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6624
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6637
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6810
+    Length:          20
+    ReplacementText: 'sycl::sin(PI * x / length)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6833
+    Length:          20
+    ReplacementText: 'sycl::sin(PI * y / length)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6879
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6932
+    Length:          0
+    ReplacementText: ', sycl::nd_item<3> item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6947
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6960
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          6973
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7113
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7263
+    Length:          0
+    ReplacementText: ",\n           sycl::nd_item<3> item_ct1"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7398
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7411
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7424
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7447
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7460
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Offset:          7473
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+    Digest:          0641b06cb93d3981c6203ff7b74aa2f1
+DpctVersion:     2023.0.0
+MainHelperFileName: dpct
+USMLevel:        ''
+FeatureMap:
+  device.hpp:
+    dev_mgr:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dev_mgr
+      SubFeatureMap:
+        dev_mgr_1:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     dev_mgr
+          SubFeatureMap:   {}
+        dev_mgr_2:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     dev_mgr
+          SubFeatureMap:   {}
+        dev_mgr_3:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     dev_mgr
+          SubFeatureMap:   {}
+        dev_mgr_4:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     dev_mgr
+          SubFeatureMap:   {}
+        dev_mgr_check_id:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'dev_mgr::check_id'
+          SubFeatureMap:   {}
+        dev_mgr_current_device:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'dev_mgr::current_device'
+          SubFeatureMap:   {}
+        dev_mgr_current_device_id:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'dev_mgr::current_device_id'
+          SubFeatureMap:   {}
+        dev_mgr_get_device:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'dev_mgr::get_device'
+          SubFeatureMap:   {}
+    device_ext:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     device_ext
+      SubFeatureMap:
+        device_ext_1:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     device_ext
+          SubFeatureMap:   {}
+        device_ext_2:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     device_ext
+          SubFeatureMap:   {}
+        device_ext_default_queue:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_ext::default_queue'
+          SubFeatureMap:   {}
+        device_ext_get_device_info_return_info:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_ext::get_device_info'
+          SubFeatureMap:   {}
+        device_ext_get_device_info_return_void:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_ext::get_device_info'
+          SubFeatureMap:   {}
+        device_ext_get_version:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_ext::get_version'
+          SubFeatureMap:   {}
+        device_ext_queues_wait_and_throw:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_ext::queues_wait_and_throw'
+          SubFeatureMap:   {}
+    device_info:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     device_info
+      SubFeatureMap:
+        device_info_1:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     device_info
+          SubFeatureMap:   {}
+        device_info_get_name:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::get_name'
+          SubFeatureMap:   {}
+        device_info_set_global_mem_size:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_global_mem_size'
+          SubFeatureMap:   {}
+        device_info_set_host_unified_memory:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_host_unified_memory'
+          SubFeatureMap:   {}
+        device_info_set_local_mem_size:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_local_mem_size'
+          SubFeatureMap:   {}
+        device_info_set_major_version:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_major_version'
+          SubFeatureMap:   {}
+        device_info_set_max_clock_frequency:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_clock_frequency'
+          SubFeatureMap:   {}
+        device_info_set_max_compute_units:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_compute_units'
+          SubFeatureMap:   {}
+        device_info_set_max_nd_range_size:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_nd_range_size'
+          SubFeatureMap:   {}
+        device_info_set_max_sub_group_size:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_sub_group_size'
+          SubFeatureMap:   {}
+        device_info_set_max_work_group_size:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_work_group_size'
+          SubFeatureMap:   {}
+        device_info_set_max_work_item_sizes:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_work_item_sizes'
+          SubFeatureMap:   {}
+        device_info_set_max_work_items_per_compute_unit:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_max_work_items_per_compute_unit'
+          SubFeatureMap:   {}
+        device_info_set_minor_version:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_minor_version'
+          SubFeatureMap:   {}
+        device_info_set_name:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'device_info::set_name'
+          SubFeatureMap:   {}
+    exception_handler:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     exception_handler
+      SubFeatureMap:   {}
+    get_current_device:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     get_current_device
+      SubFeatureMap:   {}
+    get_default_queue:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     get_default_queue
+      SubFeatureMap:   {}
+    get_tid:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     get_tid
+      SubFeatureMap:   {}
+  dpct.hpp:
+    non_local_include_dependency:
+      IsCalled:        true
+      CallerSrcFiles:
+        - ''
+      FeatureName:     ''
+      SubFeatureMap:   {}
+  memory.hpp:
+    dpct_get_copy_range_detail:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_get_copy_range_detail
+      SubFeatureMap:   {}
+    dpct_get_offset_detail:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_get_offset_detail
+      SubFeatureMap:   {}
+    dpct_memcpy:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    dpct_memcpy_2d:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    dpct_memcpy_2d_3d_pitch_detail:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    dpct_memcpy_2d_pitch_detail:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    dpct_memcpy_3d:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    dpct_memcpy_3d_detail:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    dpct_memcpy_detail:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     dpct_memcpy
+      SubFeatureMap:   {}
+    get_memcpy_direction:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     get_memcpy_direction
+      SubFeatureMap:   {}
+    get_pointer_attribute:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     get_pointer_attribute
+      SubFeatureMap:   {}
+    mem_mgr:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     mem_mgr
+      SubFeatureMap:
+        mem_mgr_1:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     mem_mgr
+          SubFeatureMap:   {}
+        mem_mgr_2:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     mem_mgr
+          SubFeatureMap:   {}
+        mem_mgr_get_map_iterator:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'mem_mgr::get_map_iterator'
+          SubFeatureMap:   {}
+        mem_mgr_is_device_ptr:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'mem_mgr::is_device_ptr'
+          SubFeatureMap:   {}
+        mem_mgr_translate_ptr:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'mem_mgr::translate_ptr'
+          SubFeatureMap:   {}
+    memcpy_direction:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     memcpy_direction
+      SubFeatureMap:   {}
+    pitched_data:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     pitched_data
+      SubFeatureMap:
+        pitched_data_get_data_ptr:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'pitched_data::get_data_ptr'
+          SubFeatureMap:   {}
+        pitched_data_get_pitch:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'pitched_data::get_pitch'
+          SubFeatureMap:   {}
+        pitched_data_get_y:
+          IsCalled:        true
+          CallerSrcFiles:
+            - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+          FeatureName:     'pitched_data::get_y'
+          SubFeatureMap:   {}
+    pitched_data_1:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     pitched_data
+      SubFeatureMap:   {}
+    pointer_access_attribute:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     pointer_access_attribute
+      SubFeatureMap:   {}
+    typedef_buffer_t:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     buffer_t
+      SubFeatureMap:   {}
+    typedef_byte_t:
+      IsCalled:        true
+      CallerSrcFiles:
+        - '/home/ku0ku0yiyi/heat_sycl/heat_cuda.cu'
+      FeatureName:     byte_t
+      SubFeatureMap:   {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           '/home/ku0ku0yiyi/heat_sycl'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           ''
+    Specified:       false
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  CustomHelperFileName:
+    Value:           dpct
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '0'
+    Specified:       false
+  ExplicitClNamespace:
+    Value:           'false'
+    Specified:       false
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '0'
+    Specified:       false
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...
